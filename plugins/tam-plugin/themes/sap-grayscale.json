@@ -1,0 +1,91 @@
+{
+  "name": "sap-grayscale",
+  "description": "Grayscale theme for print-ready TAM diagrams",
+  "colors": {
+    "primary": "#000000",
+    "primaryLight": "#E5E5E5",
+    "secondary": "#333333",
+    "text": "#000000",
+    "textMuted": "#666666",
+    "border": "#999999",
+    "background": "#FFFFFF",
+    "surface": "#F0F0F0"
+  },
+  "spacing": {
+    "unit": 8
+  },
+  "typography": {
+    "fontFamily": {
+      "primary": "Arial, sans-serif"
+    },
+    "fontSize": {
+      "md": 12
+    }
+  },
+  "node": {
+    "default": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#000000",
+      "strokeWidth": 2,
+      "fontColor": "#000000",
+      "fontSize": 12
+    },
+    "agent": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#000000",
+      "strokeWidth": 2
+    },
+    "human-agent": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#000000",
+      "strokeWidth": 2
+    },
+    "storage": {
+      "fillColor": "#E5E5E5",
+      "strokeColor": "#000000",
+      "strokeWidth": 2,
+      "arcSize": 60
+    },
+    "channel": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#000000",
+      "strokeWidth": 2
+    },
+    "subsystem": {
+      "fillColor": "#F0F0F0",
+      "strokeColor": "#666666",
+      "strokeWidth": 1,
+      "dashed": true
+    }
+  },
+  "connector": {
+    "read": {
+      "strokeColor": "#000000",
+      "strokeWidth": 1.5,
+      "endArrow": "block",
+      "endFill": 1
+    },
+    "write": {
+      "strokeColor": "#000000",
+      "strokeWidth": 1.5,
+      "endArrow": "block",
+      "endFill": 1
+    },
+    "modify": {
+      "strokeColor": "#000000",
+      "strokeWidth": 1.5,
+      "endArrow": "block",
+      "endFill": 1,
+      "curved": 1
+    },
+    "channel": {
+      "strokeColor": "#000000",
+      "strokeWidth": 1.5,
+      "endArrow": "none"
+    }
+  },
+  "canvas": {
+    "background": "#FFFFFF",
+    "gridSize": 8
+  }
+}

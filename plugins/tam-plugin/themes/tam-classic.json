@@ -1,0 +1,89 @@
+{
+  "name": "tam-classic",
+  "description": "Classic FMC notation style",
+  "colors": {
+    "primary": "#333333",
+    "primaryLight": "#F0F0F0",
+    "text": "#000000",
+    "textMuted": "#666666",
+    "border": "#666666",
+    "background": "#FFFFFF"
+  },
+  "spacing": {
+    "unit": 8
+  },
+  "typography": {
+    "fontFamily": {
+      "primary": "Arial, sans-serif"
+    },
+    "fontSize": {
+      "md": 12
+    }
+  },
+  "node": {
+    "default": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#333333",
+      "strokeWidth": 2,
+      "fontColor": "#000000",
+      "fontSize": 12
+    },
+    "agent": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#333333",
+      "strokeWidth": 2
+    },
+    "human-agent": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#333333",
+      "strokeWidth": 2
+    },
+    "storage": {
+      "fillColor": "#F0F0F0",
+      "strokeColor": "#333333",
+      "strokeWidth": 2,
+      "arcSize": 60
+    },
+    "channel": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#333333",
+      "strokeWidth": 1.5
+    },
+    "subsystem": {
+      "fillColor": "#FAFAFA",
+      "strokeColor": "#666666",
+      "strokeWidth": 1,
+      "dashed": true
+    }
+  },
+  "connector": {
+    "read": {
+      "strokeColor": "#333333",
+      "strokeWidth": 1.5,
+      "endArrow": "block",
+      "endFill": 1
+    },
+    "write": {
+      "strokeColor": "#333333",
+      "strokeWidth": 1.5,
+      "endArrow": "block",
+      "endFill": 1
+    },
+    "modify": {
+      "strokeColor": "#333333",
+      "strokeWidth": 1.5,
+      "endArrow": "block",
+      "endFill": 1,
+      "curved": 1
+    },
+    "channel": {
+      "strokeColor": "#333333",
+      "strokeWidth": 1.5,
+      "endArrow": "none"
+    }
+  },
+  "canvas": {
+    "background": "#FFFFFF",
+    "gridSize": 8
+  }
+}

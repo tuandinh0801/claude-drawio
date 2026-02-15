@@ -23,6 +23,20 @@
       "keywords": ["diagram", "flowchart", "architecture", "drawio", "design-system"],
       "category": "visual-design",
       "tags": ["diagram", "flowchart", "architecture"]
+    },
+    {
+      "name": "tam-plugin",
+      "source": "./plugins/tam-plugin",
+      "description": "SAP TAM (Technical Architecture Modeling) diagram generation with FMC block diagrams and UML notation",
+      "version": "1.0.0",
+      "author": {
+        "name": "Tuan Dinh"
+      },
+      "repository": "https://github.com/tuandinh0801/claude-drawio",
+      "license": "MIT",
+      "keywords": ["tam", "fmc", "sap", "architecture", "block-diagram", "uml"],
+      "category": "visual-design",
+      "tags": ["tam", "fmc", "sap", "architecture"]
     }
   ]
 }

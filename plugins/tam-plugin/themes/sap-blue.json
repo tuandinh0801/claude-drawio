@@ -1,0 +1,145 @@
+{
+  "name": "sap-blue",
+  "description": "SAP corporate blue theme for TAM diagrams",
+  "colors": {
+    "primary": "#0070F2",
+    "primaryLight": "#E5F0FF",
+    "secondary": "#0D6EFD",
+    "accent": "#107E3E",
+    "background": "#FFFFFF",
+    "surface": "#F5F5F5",
+    "text": "#1E1E1E",
+    "textMuted": "#666666",
+    "border": "#CCCCCC",
+    "error": "#BB0000",
+    "warning": "#E9730C",
+    "success": "#107E3E"
+  },
+  "spacing": {
+    "unit": 8,
+    "scale": {
+      "xs": 4,
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32,
+      "xxl": 48
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "primary": "72, Arial, sans-serif",
+      "monospace": "72 Mono, Consolas, monospace"
+    },
+    "fontSize": {
+      "xs": 10,
+      "sm": 11,
+      "md": 12,
+      "lg": 14,
+      "xl": 16
+    },
+    "fontWeight": {
+      "normal": 400,
+      "medium": 500,
+      "bold": 700
+    }
+  },
+  "borderRadius": {
+    "none": 0,
+    "sm": 4,
+    "md": 8,
+    "lg": 12,
+    "storage": 30
+  },
+  "node": {
+    "default": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#0070F2",
+      "strokeWidth": 2,
+      "fontColor": "#1E1E1E",
+      "fontSize": 12
+    },
+    "agent": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#0070F2",
+      "strokeWidth": 2,
+      "rounded": 0
+    },
+    "human-agent": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#0070F2",
+      "strokeWidth": 2,
+      "rounded": 0
+    },
+    "storage": {
+      "fillColor": "#E5F0FF",
+      "strokeColor": "#0070F2",
+      "strokeWidth": 2,
+      "arcSize": 60
+    },
+    "channel": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#0070F2",
+      "strokeWidth": 2
+    },
+    "subsystem": {
+      "fillColor": "#F5F5F5",
+      "strokeColor": "#666666",
+      "strokeWidth": 1,
+      "dashed": true
+    },
+    "component": {
+      "fillColor": "#FFFFFF",
+      "strokeColor": "#0070F2",
+      "strokeWidth": 1.5
+    }
+  },
+  "connector": {
+    "read": {
+      "strokeColor": "#1E1E1E",
+      "strokeWidth": 1.5,
+      "endArrow": "block",
+      "endFill": 1
+    },
+    "write": {
+      "strokeColor": "#1E1E1E",
+      "strokeWidth": 1.5,
+      "endArrow": "block",
+      "endFill": 1
+    },
+    "modify": {
+      "strokeColor": "#1E1E1E",
+      "strokeWidth": 1.5,
+      "endArrow": "block",
+      "endFill": 1,
+      "curved": 1
+    },
+    "channel": {
+      "strokeColor": "#1E1E1E",
+      "strokeWidth": 1.5,
+      "endArrow": "none"
+    },
+    "request": {
+      "strokeColor": "#1E1E1E",
+      "strokeWidth": 1.5,
+      "endArrow": "none"
+    },
+    "dependency": {
+      "strokeColor": "#666666",
+      "strokeWidth": 1,
+      "dashed": true,
+      "endArrow": "open"
+    }
+  },
+  "module": {
+    "fillColor": "#F5F5F5",
+    "strokeColor": "#CCCCCC",
+    "strokeWidth": 1,
+    "padding": 24
+  },
+  "canvas": {
+    "background": "#FFFFFF",
+    "gridSize": 8,
+    "gridColor": "#E5E5E5"
+  }
+}
