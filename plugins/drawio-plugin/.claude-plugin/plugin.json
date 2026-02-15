@@ -1,0 +1,18 @@
+{
+  "name": "drawio-plugin",
+  "description": "AI-powered Draw.io diagram generation with Design System, 3 workflows, and real-time browser preview",
+  "version": "2.0.0",
+  "author": {
+    "name": "Tuan Dinh"
+  },
+  "homepage": "https://next-ai-drawio.jiang.jp",
+  "repository": "https://github.com/tuandinh0801/claude-drawio",
+  "license": "MIT",
+  "keywords": ["diagram", "flowchart", "architecture", "drawio", "design-system"],
+  "mcpServers": {
+    "drawio": {
+      "command": "npx",
+      "args": ["--yes", "@next-ai-drawio/mcp-server@latest"]
+    }
+  }
+}

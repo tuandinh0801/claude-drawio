@@ -1,0 +1,29 @@
+{
+  "name": "claude-drawio",
+  "owner": {
+    "name": "Tuan Dinh",
+    "email": "tuandtb08@gmail.com"
+  },
+  "metadata": {
+    "description": "AI-powered Draw.io diagram generation marketplace",
+    "version": "1.0.0",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "drawio-plugin",
+      "source": "./drawio-plugin",
+      "description": "AI-powered Draw.io diagram generation with Design System, 3 workflows, and real-time browser preview",
+      "version": "2.0.0",
+      "author": {
+        "name": "Tuan Dinh"
+      },
+      "homepage": "https://next-ai-drawio.jiang.jp",
+      "repository": "https://github.com/tuandinh0801/claude-drawio",
+      "license": "MIT",
+      "keywords": ["diagram", "flowchart", "architecture", "drawio", "design-system"],
+      "category": "visual-design",
+      "tags": ["diagram", "flowchart", "architecture"]
+    }
+  ]
+}
