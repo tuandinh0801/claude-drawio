@@ -2,7 +2,9 @@
   "name": "tam-plugin",
   "version": "1.0.0",
   "description": "SAP TAM (Technical Architecture Modeling) diagram generation for Draw.io",
-  "author": "Tuan Dinh",
+  "author": {
+    "name": "Tuan Dinh"
+  },
   "license": "MIT",
   "mcpServers": {
     "drawio": {
