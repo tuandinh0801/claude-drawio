@@ -1,15 +1,14 @@
 ---
 name: tam-edit
-description: Edit an existing TAM diagram
+description: Edit existing TAM diagram
 triggers:
   - tam edit
-  - edit tam
-  - modify tam diagram
+  - modify tam
 ---
 
 # /tam-edit
 
-Edit an existing TAM diagram with natural language instructions.
+Modify an existing TAM diagram while preserving TAM semantics.
 
 ## Usage
 
@@ -17,40 +16,25 @@ Edit an existing TAM diagram with natural language instructions.
 /tam-edit [instructions]
 ```
 
-## Examples
-
-```
-/tam-edit Add a cache storage between API and Database
-
-/tam-edit Change "User Service" to "Auth Service"
-
-/tam-edit Add a message queue channel between Order Processor and Notification Service
-```
-
 ## Process
 
-1. **Get Current Diagram** - Call `get_diagram` to retrieve XML
-2. **Analyze Request** - Understand what changes are needed
-3. **Apply TAM Rules** - Validate changes follow TAM semantics
-4. **Edit Diagram** - Call `edit_diagram` with operations
-5. **Verify** - Confirm changes in browser preview
+1. **Get Diagram** - `get_diagram` to fetch current XML
+2. **Parse Instructions** - Identify add/update/delete operations
+3. **Validate TAM Rules** - Ensure changes comply with TAM semantics
+4. **Apply Edits** - `edit_diagram` with operations
+5. **Verify** - Check browser preview
 
-## Supported Operations
+## Edit Operations
 
 | Operation | Description |
 |-----------|-------------|
-| Add agent | Add new active component |
-| Add storage | Add new passive data holder |
-| Add channel | Add communication between agents |
-| Add access | Add read/write/modify arrow |
-| Rename | Change label of existing element |
-| Delete | Remove element from diagram |
-| Move | Reposition element |
-| Restyle | Change colors/theme |
+| Add | Insert new stencil element |
+| Update | Modify existing element's label/position |
+| Delete | Remove element by ID |
 
 ## TAM Validation
 
-All edits are validated against TAM rules:
-- No direct agent-to-agent connections
-- Storages cannot have outgoing writes
-- Channels connect exactly 2 agents
+Before applying edits:
+- Adding agent-to-agent access? → Reject, suggest channel
+- Adding storage write access? → Check direction (agent → storage)
+- Removing channel? → Warn about disconnected agents

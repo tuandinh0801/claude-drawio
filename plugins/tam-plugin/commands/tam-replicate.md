@@ -1,16 +1,14 @@
 ---
 name: tam-replicate
-description: Replicate an image as a TAM diagram
+description: Convert image to TAM notation
 triggers:
   - tam replicate
-  - replicate tam
   - convert to tam
-  - tam from image
 ---
 
 # /tam-replicate
 
-Replicate an existing architecture diagram/image as a TAM-compliant diagram.
+Convert existing architecture diagrams to TAM-compliant notation.
 
 ## Usage
 
@@ -19,40 +17,29 @@ Replicate an existing architecture diagram/image as a TAM-compliant diagram.
 [Upload image]
 ```
 
-## Examples
-
-```
-/tam-replicate
-[Upload architecture diagram screenshot]
-
-/tam-replicate
-【领域】软件架构
-[Upload system design image]
-```
-
 ## Process
 
-1. **Start Session** - Call `start_session` to open browser
-2. **Analyze Image** - Extract components, connections, and relationships
-3. **Map to TAM** - Convert elements to TAM notation:
-   - Services/Components → Agents
-   - Databases/Caches → Storages
-   - APIs/Queues → Channels
-   - Arrows → Accesses (read/write/modify)
-4. **Apply TAM Rules** - Validate and fix any violations
-5. **Generate Diagram** - Create TAM-compliant Draw.io diagram
-6. **Iterate** - Refine based on feedback
+1. **Start Session** - `start_session`
+2. **Analyze Image** - Identify visual elements
+3. **Map to TAM** - Convert to TAM stencils
+4. **Generate Diagram** - Create with official stencils
+5. **Refine** - Adjust based on feedback
 
-## TAM Mapping
+## Visual to TAM Mapping
 
-| Original Element | TAM Element |
-|-----------------|-------------|
-| Box/Rectangle (active) | Agent |
-| Person icon | Human Agent |
-| Cylinder/Database | Storage |
-| Circle/Queue | Channel |
-| Arrow (data flow) | Access |
+| Visual Element | TAM Stencil |
+|----------------|-------------|
+| Rectangle (labeled service) | `agent` |
+| Stick figure / Person | `human-agent` |
+| Cylinder / Database | `storage` |
+| Circle (message/event) | `channel` |
+| Cloud shape | subsystem boundary |
+| Arrow with label | `n-hor-arrow` or `z-vert-arrow` |
+| Dashed box | module boundary |
 
-## Output
+## TAM Rules Applied
 
-TAM-compliant block diagram that faithfully represents the original while following SAP's TAM standard notation.
+1. Direct agent-to-agent → Add channel between
+2. Arrow TO database → Write access
+3. Arrow FROM database → Read access
+4. Bidirectional → Use `mod-access-*` stencils

@@ -1,135 +1,129 @@
-# TAM Semantic Shapes
+# TAM Official Stencils
 
-The TAM Design System maps semantic node types to FMC/UML compliant shapes.
-
----
-
-## Core TAM Shapes (Block Diagram)
-
-| Semantic Type | Shape | mxCell Style | Keywords |
-|---------------|-------|--------------|----------|
-| `agent` | Rectangle | `rounded=0;strokeWidth=2` | agent, service, process, component, handler |
-| `human-agent` | Rectangle + Stick Figure | `shape=actor;rounded=0` | user, person, human, actor, operator |
-| `storage` | Rounded Rectangle | `rounded=1;arcSize=60;strokeWidth=2` | storage, database, db, data, repository, cache |
-| `channel` | Circle | `ellipse;aspect=fixed` | channel, queue, message, event, topic |
-| `channel-request` | Circle + R Arrow | `ellipse;aspect=fixed` | request, http, api, rpc |
-| `multiple` | Stacked Shape | `+offsetSize=8` | multiple, many, instances |
-| `subsystem` | Rectangle (thin) | `rounded=0;strokeWidth=1;dashed=1` | subsystem, boundary, system |
+This plugin uses **official TAM (Technical Architecture Modeling) stencils** from SAP.
 
 ---
 
-## UML Shapes (Design Level)
+## Block Diagram Stencils (TAM-BD)
 
-| Semantic Type | Shape | mxCell Style | Keywords |
-|---------------|-------|--------------|----------|
-| `component` | Rectangle + Icon | `shape=component` | component |
-| `interface-provided` | Lollipop | Circle on stick | provides, exposes |
-| `interface-required` | Socket | Half circle | requires, depends |
-| `package` | Folder | `shape=folder` | package, module, namespace |
-| `class` | Rectangle 3-part | `swimlane;fontStyle=1` | class, entity, type |
-
----
-
-## Behavioral Shapes
-
-| Semantic Type | Shape | mxCell Style | Keywords |
-|---------------|-------|--------------|----------|
-| `use-case` | Ellipse | `ellipse` | use case, scenario, feature |
-| `action` | Rounded Rectangle | `rounded=1;arcSize=20` | action, activity, step |
-| `decision` | Diamond | `rhombus` | decision, condition, if, branch |
-| `fork-join` | Bar | `line;strokeWidth=4` | fork, join, sync |
-| `initial` | Filled Circle | `ellipse;fillColor=#000000` | start, begin, initial |
-| `final` | Double Circle | `shape=doubleEllipse` | end, finish, final |
-| `state` | Rounded Rectangle | `rounded=1` | state, status |
-
----
-
-## Shape Styles by Theme
-
-### SAP Blue (Default)
-
-| Type | Fill | Stroke |
-|------|------|--------|
-| agent | `#FFFFFF` | `#0070F2` (SAP Blue) |
-| human-agent | `#FFFFFF` | `#0070F2` |
-| storage | `#E5F0FF` | `#0070F2` |
-| channel | `#FFFFFF` | `#0070F2` |
-| subsystem | `#F5F5F5` | `#666666` |
-
-### SAP Grayscale (Print)
-
-| Type | Fill | Stroke |
-|------|------|--------|
-| agent | `#FFFFFF` | `#000000` |
-| human-agent | `#FFFFFF` | `#000000` |
-| storage | `#E5E5E5` | `#000000` |
-| channel | `#FFFFFF` | `#000000` |
+| Stencil ID | Title | Dimensions | Purpose |
+|------------|-------|------------|---------|
+| `agent` | Agent | 120×60 | Active component (processes data) |
+| `storage` | Storage | 120×60 | Passive data holder |
+| `n-hor-channel` | N hor. Channel | 50×50 | Horizontal channel |
+| `n-hor-channel-left` | N hor. Channel left | 50×50 | Horizontal channel (left variant) |
+| `z-vert-channel` | Z vert. Channel | 50×50 | Vertical channel |
+| `z-vert-channel-up` | Z vert. Channel up | 50×50 | Vertical channel (up variant) |
+| `human-agent` | Human Agent | 60×60 | Human participant with stick figure |
+| `mod-access-hor` | mod. Access hor. | 40×40 | Horizontal modify access |
+| `mod-access-vert` | mod. Access vert. | 40×40 | Vertical modify access |
+| `n-hor-arrow` | N hor. Arrow | 50×50 | Horizontal arrow |
+| `z-vert-arrow` | Z vert. Arrow | 50×50 | Vertical arrow |
+| `n-hor-connector` | N hor. Connector | 50×50 | Horizontal connector line |
+| `z-vert-connector` | Z vert. Connector | 50×50 | Vertical connector line |
+| `channel` | Channel | 20×20 | Small channel circle |
+| `human` | Human | 20×40 | Human stick figure |
+| `reqres-right` | ReqRes Right | 30×30 | Request/Response (right) |
+| `reqres-left` | ReqRes Left | 10×~0 | Request/Response (left) |
+| `reqres-up` | ReqRes Up | ~0×20 | Request/Response (up) |
+| `reqres-down` | ReqRes Down | 30×30 | Request/Response (down) |
+| `reqres-bi-vertical` | ReqRes Bi Vertical | 20×40 | Bidirectional vertical |
+| `reqres-bi-horizontal` | ReqRes Bi Horizontal | 30×~0 | Bidirectional horizontal |
+| `structure-variance` | Structure Variance | 150×90 | Structural variance |
+| `queue` | Queue | 120×60 | Message queue |
+| `l-shape` | L Shape | 240×240 | L-shaped container |
+| `multiple-dots` | Multiple Dots | 45×5 | Multiplicity indicator |
 
 ---
 
-## mxCell Style Reference
+## Activity Diagram Stencils (TAM-AD)
 
-### Agent (Active Component)
+| Stencil ID | Title | Dimensions | Purpose |
+|------------|-------|------------|---------|
+| `action` | Action | 120×60 | Activity action node |
+| `start-of-activity` | Start of Activity | 20×20 | Initial node |
+| `end-of-activity` | End of Activity | 30×30 | Final node |
+| `decision-or-merge` | Decision or Merge | 20×20 | Diamond decision/merge |
+| `swimlane-vertical-lr` | Swimlane vertical l+r | 220×300 | Vertical swimlane |
+| `swimlane-vertical-r` | Swimlane vertical r | 220×280 | Vertical swimlane (right) |
+| `fork-or-join` | Fork or Join | 120×10 | Synchronization bar |
+| `end-of-flow` | End of Flow | 30×30 | Flow termination |
+| `object-node` | Object Node | 120×60 | Object/data node |
 
-```xml
-<mxCell style="rounded=0;whiteSpace=wrap;html=1;
-  fillColor=#FFFFFF;strokeColor=#0070F2;strokeWidth=2;
-  fontColor=#1E1E1E;fontSize=12;fontFamily=72,Arial;" />
-```
+---
 
-### Human Agent (with Stick Figure)
+## Class Diagram Stencils (TAM-CD)
 
-```xml
-<!-- Container rectangle -->
-<mxCell style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=bottom;
-  fillColor=#FFFFFF;strokeColor=#0070F2;strokeWidth=2;" />
-<!-- Stick figure inside (positioned at top) -->
-<mxCell style="shape=umlActor;verticalLabelPosition=bottom;
-  fillColor=#0070F2;strokeColor=#0070F2;" />
-```
+| Stencil ID | Title | Dimensions | Purpose |
+|------------|-------|------------|---------|
+| `class` | Class | 120×60 | UML class |
+| `class-with-compartments` | Class with compartments | 140×70 | Class with attributes/operations |
+| `association` | Association | 50×50 | Association relationship |
+| `composition` | Composition | 50×50 | Composition (filled diamond) |
+| `aggregation` | Aggregation | 50×50 | Aggregation (hollow diamond) |
+| `specialization` | Specialization | 50×50 | Inheritance |
+| `package` | Package | 200×100 | UML package |
 
-### Storage (Passive Component)
+---
 
-```xml
-<mxCell style="rounded=1;whiteSpace=wrap;html=1;arcSize=60;
-  fillColor=#E5F0FF;strokeColor=#0070F2;strokeWidth=2;
-  fontColor=#1E1E1E;fontSize=12;" />
-```
+## Sequence Diagram Stencils (TAM-SeqD)
 
-### Channel (Communication)
+| Stencil ID | Title | Dimensions | Purpose |
+|------------|-------|------------|---------|
+| `lifeline` | Lifeline | 120×360 | Object lifeline |
+| `activation` | Activation | 20×120 | Activation bar |
+| `no-focus` | No Focus | 20×120 | Inactive period |
+| `sync-message-exchange` | Sync. Message Exchange | 160×60 | Synchronous call |
+| `async-message-exchange` | Async. Message Exchange | 160×60 | Asynchronous call |
+| `r2l-sync-message-exchange` | R2L Sync. Message Exchange | 160×60 | Right-to-left sync |
+| `r2l-async-message-exchange` | R2L Async. Message Exchange | 160×60 | Right-to-left async |
+| `self-call` | Self-Call | 20×120 | Self-referential message |
 
-```xml
-<mxCell style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;
-  fillColor=#FFFFFF;strokeColor=#0070F2;strokeWidth=2;
-  fontColor=#1E1E1E;fontSize=10;" />
-```
+---
 
-### Channel with Request Direction
+## Annotation Stencils (TAM-Ann)
 
-```xml
-<!-- Circle -->
-<mxCell style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;
-  fillColor=#FFFFFF;strokeColor=#0070F2;strokeWidth=2;" />
-<!-- R label with arrow (separate cell) -->
-<mxCell style="text;html=1;strokeColor=none;fillColor=none;
-  fontSize=10;fontStyle=1;" value="R▶" />
-```
+| Stencil ID | Title | Dimensions | Purpose |
+|------------|-------|------------|---------|
+| `text` | Text | 40×20 | Text annotation |
+| `area` | Area | 200×100 | Highlight area |
+| `3-dots-hor` | 3 Dots hor. | 30×30 | Horizontal ellipsis |
+| `3-dots-vert` | 3 Dots vert. | 30×30 | Vertical ellipsis |
+| `border-vertical` | Border Vertical | 0×300 | Vertical border line |
+| `border-horizontal` | Border Horizontal | 300×0 | Horizontal border line |
+| `note` | Note | 100×100 | Note annotation |
+| `curly-brace-*` | Curly Brace variants | various | Grouping braces |
 
-### Multiple Agents (Stacked)
+---
 
-```xml
-<mxCell style="rounded=0;whiteSpace=wrap;html=1;
-  fillColor=#FFFFFF;strokeColor=#0070F2;strokeWidth=2;
-  shadow=1;" />
-<!-- Offset shadow creates stacked effect -->
+## Usage
+
+When creating TAM diagrams, use stencil IDs to specify exact shapes:
+
+```yaml
+nodes:
+  - id: webServer
+    stencil: agent
+    label: Web Server
+
+  - id: database
+    stencil: storage
+    label: PostgreSQL
+
+  - id: httpChannel
+    stencil: n-hor-channel
+
+  - id: user
+    stencil: human-agent
+    label: User
 ```
 
 ---
 
-## TAM-Specific Rules
+## TAM Semantic Rules (Strictly Enforced)
 
-1. **Agents cannot connect directly to agents** - must use channels
-2. **Storages are passive** - cannot initiate actions
-3. **Channels are volatile** - data does not persist
-4. **Access arrows show data flow direction** - not control flow
-5. **Request direction (R→) indicates who initiates** - response flows opposite
+1. **Agents cannot connect directly to agents** - use channels
+2. **Storages are passive** - cannot initiate communication
+3. **Channels are volatile** - no persistent data
+4. **Access arrows show data flow direction**
+5. **Request direction indicates initiator**

@@ -1,17 +1,15 @@
 ---
 name: tam-create
-description: Create TAM diagram from natural language
+description: Create TAM diagram using official stencils
 triggers:
   - tam create
   - tam diagram
   - block diagram
-  - architecture diagram
-  - fmc diagram
 ---
 
 # /tam-create
 
-Create a TAM-compliant diagram from natural language description.
+Create a TAM-compliant diagram using official SAP stencils.
 
 ## Usage
 
@@ -19,43 +17,31 @@ Create a TAM-compliant diagram from natural language description.
 /tam-create [description]
 ```
 
-## Examples
-
-```
-/tam-create a microservices architecture with API gateway, user service, and PostgreSQL database
-
-/tam-create an online shop with customers, web server, order processor, and product catalog
-```
-
 ## Process
 
-1. **Start Session** - Call `start_session` to open browser
-2. **Analyze Request** - Extract TAM elements (agents, storages, channels)
-3. **Apply TAM Rules** - Validate agent↔storage↔channel relationships
-4. **Generate XML** - Create Draw.io compatible mxGraphModel
-5. **Create Diagram** - Call `create_new_diagram`
-6. **Iterate** - Refine based on feedback
+1. **Start Session** - `start_session`
+2. **Analyze Request** - Identify TAM elements
+3. **Map to Stencils** - Use official TAM stencil IDs
+4. **Generate XML** - Create mxGraphModel with stencil XML
+5. **Create Diagram** - `create_new_diagram`
 
-## TAM Element Detection
+## Stencil Mapping
 
-| User Says | TAM Element |
+| User Says | TAM Stencil |
 |-----------|-------------|
-| "user", "customer", "operator" | Human Agent |
-| "server", "service", "processor" | Agent |
-| "database", "storage", "cache" | Storage |
-| "API", "HTTP", "message queue" | Channel |
+| user, customer, person | `human-agent` |
+| server, service, handler | `agent` |
+| database, storage, cache | `storage` |
+| channel, api, http, queue | `n-hor-channel` or `z-vert-channel` |
 
-## Output
+## Example
 
-TAM-compliant block diagram with:
-- Rectangular agents (active components)
-- Rounded storages (passive components)
-- Circular channels (communication)
-- Directional access arrows (data flow)
+```
+/tam-create an e-commerce system with customers, web server, and product database
+```
 
-## TAM Rules Applied
-
-- Agents cannot connect directly to agents (use channels)
-- Storages are passive (cannot initiate)
-- Access arrows show data flow direction
-- Request direction (R→) indicates initiator
+Maps to:
+- Customer → `human-agent`
+- Web Server → `agent`
+- Product Database → `storage`
+- HTTP connection → `n-hor-channel`
