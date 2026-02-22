@@ -1,6 +1,6 @@
 # TAM Specification Format
 
-YAML-based specification using official TAM stencils.
+YAML-based specification for TAM diagrams using exact shape names.
 
 ---
 
@@ -9,27 +9,53 @@ YAML-based specification using official TAM stencils.
 ```yaml
 meta:
   diagramType: block    # block | activity | class | sequence
-  title: System Architecture
-  description: Overview
+  title: System Name
 
 nodes:
   - id: unique-id
-    stencil: agent      # TAM stencil ID (required)
-    label: Display Name
-    position:           # Optional manual position
-      x: 100
-      y: 100
+    shape: BD-Agent     # Exact shape name from stencils
+    label: Display Text
+    x: 100              # X position (snap to 8px grid)
+    y: 100              # Y position
 
 edges:
   - from: source-id
     to: target-id
-    stencil: n-hor-arrow  # Optional: use specific TAM stencil
-    label: Optional Label
+    shape: BD-InfoFlowArrow-Rect-N  # Optional: connector shape
+    label: Connection Label
 ```
 
 ---
 
-## Block Diagram Specification
+## Shape Names
+
+### Block Diagram
+| Shape | Purpose | Size |
+|-------|---------|------|
+| `BD-Agent` | Active component | 120x60 |
+| `BD-HumanAgent` | Human participant | 60x60 |
+| `BD-Storage` | Data storage | 120x60 |
+| `BD-Channel` | Communication point | 20x20 |
+| `BD-Channel-Rect-N` | Horizontal channel connector | 50x50 |
+| `BD-Channel-Rect-Z` | Vertical channel connector | 50x50 |
+| `BD-modAccessHor` | Horizontal modify access | 40x40 |
+| `BD-modAccessVert` | Vertical modify access | 40x40 |
+| `BD-InfoFlowArrow-Rect-N` | Horizontal arrow | 50x50 |
+| `BD-InfoFlowArrow-Rect-Z` | Vertical arrow | 50x50 |
+| `BD-Queue` | Queue/Buffer | 120x60 |
+
+### Activity Diagram
+| Shape | Purpose | Size |
+|-------|---------|------|
+| `AD-Action` | Activity step | 120x60 |
+| `AD-StartOfActivity` | Start node | 20x20 |
+| `AD-EndOfActivity` | End node | 30x30 |
+| `AD-Decision` | Decision diamond | 20x20 |
+| `AD-Fork` | Fork/Join bar | 120x10 |
+
+---
+
+## Example: Simple Web App
 
 ```yaml
 meta:
@@ -37,94 +63,35 @@ meta:
   title: Web Application
 
 nodes:
-  # Active components
   - id: user
-    stencil: human-agent
+    shape: BD-HumanAgent
     label: User
+    x: 100
+    y: 200
 
-  - id: webServer
-    stencil: agent
-    label: Web Server
+  - id: webapp
+    shape: BD-Agent
+    label: Web App
+    x: 300
+    y: 200
 
-  - id: apiServer
-    stencil: agent
-    label: API Server
+  - id: db
+    shape: BD-Storage
+    label: Database
+    x: 500
+    y: 200
 
-  # Passive components
-  - id: database
-    stencil: storage
-    label: PostgreSQL
-
-  # Communication
-  - id: httpChannel
-    stencil: n-hor-channel
+  - id: channel1
+    shape: BD-Channel
+    x: 200
+    y: 215
 
 edges:
   - from: user
-    to: httpChannel
-    stencil: n-hor-connector
-
-  - from: httpChannel
-    to: webServer
-    stencil: n-hor-connector
-
-  - from: webServer
-    to: database
-    stencil: z-vert-arrow
-    label: Query
+    to: channel1
+  - from: channel1
+    to: webapp
+  - from: webapp
+    to: db
+    shape: BD-InfoFlowArrow-Rect-N
 ```
-
----
-
-## Activity Diagram Specification
-
-```yaml
-meta:
-  diagramType: activity
-  title: Login Flow
-
-nodes:
-  - id: start
-    stencil: start-of-activity
-
-  - id: enterCreds
-    stencil: action
-    label: Enter Credentials
-
-  - id: validate
-    stencil: decision-or-merge
-    label: Valid?
-
-  - id: success
-    stencil: action
-    label: Show Dashboard
-
-  - id: error
-    stencil: action
-    label: Show Error
-
-  - id: end
-    stencil: end-of-activity
-
-edges:
-  - from: start
-    to: enterCreds
-  - from: enterCreds
-    to: validate
-  - from: validate
-    to: success
-    label: Yes
-  - from: validate
-    to: error
-    label: No
-```
-
----
-
-## Validation Rules
-
-1. `stencil` must be a valid TAM stencil ID from the official library
-2. Block diagrams: agents cannot connect directly (use channels)
-3. Block diagrams: storages cannot initiate (passive only)
-4. Sequence diagrams: lifelines required for all participants
-5. All positions snap to 8px grid

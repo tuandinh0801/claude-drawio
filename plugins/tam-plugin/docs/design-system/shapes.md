@@ -1,129 +1,178 @@
-# TAM Official Stencils
+# TAM Shape Styles
 
-This plugin uses **official TAM (Technical Architecture Modeling) stencils** from SAP.
-
----
-
-## Block Diagram Stencils (TAM-BD)
-
-| Stencil ID | Title | Dimensions | Purpose |
-|------------|-------|------------|---------|
-| `agent` | Agent | 120×60 | Active component (processes data) |
-| `storage` | Storage | 120×60 | Passive data holder |
-| `n-hor-channel` | N hor. Channel | 50×50 | Horizontal channel |
-| `n-hor-channel-left` | N hor. Channel left | 50×50 | Horizontal channel (left variant) |
-| `z-vert-channel` | Z vert. Channel | 50×50 | Vertical channel |
-| `z-vert-channel-up` | Z vert. Channel up | 50×50 | Vertical channel (up variant) |
-| `human-agent` | Human Agent | 60×60 | Human participant with stick figure |
-| `mod-access-hor` | mod. Access hor. | 40×40 | Horizontal modify access |
-| `mod-access-vert` | mod. Access vert. | 40×40 | Vertical modify access |
-| `n-hor-arrow` | N hor. Arrow | 50×50 | Horizontal arrow |
-| `z-vert-arrow` | Z vert. Arrow | 50×50 | Vertical arrow |
-| `n-hor-connector` | N hor. Connector | 50×50 | Horizontal connector line |
-| `z-vert-connector` | Z vert. Connector | 50×50 | Vertical connector line |
-| `channel` | Channel | 20×20 | Small channel circle |
-| `human` | Human | 20×40 | Human stick figure |
-| `reqres-right` | ReqRes Right | 30×30 | Request/Response (right) |
-| `reqres-left` | ReqRes Left | 10×~0 | Request/Response (left) |
-| `reqres-up` | ReqRes Up | ~0×20 | Request/Response (up) |
-| `reqres-down` | ReqRes Down | 30×30 | Request/Response (down) |
-| `reqres-bi-vertical` | ReqRes Bi Vertical | 20×40 | Bidirectional vertical |
-| `reqres-bi-horizontal` | ReqRes Bi Horizontal | 30×~0 | Bidirectional horizontal |
-| `structure-variance` | Structure Variance | 150×90 | Structural variance |
-| `queue` | Queue | 120×60 | Message queue |
-| `l-shape` | L Shape | 240×240 | L-shaped container |
-| `multiple-dots` | Multiple Dots | 45×5 | Multiplicity indicator |
+This document provides the **exact mxCell style strings** for each TAM shape. Use these styles directly when building mxGraphModel XML.
 
 ---
 
-## Activity Diagram Stencils (TAM-AD)
+## How to Use
 
-| Stencil ID | Title | Dimensions | Purpose |
-|------------|-------|------------|---------|
-| `action` | Action | 120×60 | Activity action node |
-| `start-of-activity` | Start of Activity | 20×20 | Initial node |
-| `end-of-activity` | End of Activity | 30×30 | Final node |
-| `decision-or-merge` | Decision or Merge | 20×20 | Diamond decision/merge |
-| `swimlane-vertical-lr` | Swimlane vertical l+r | 220×300 | Vertical swimlane |
-| `swimlane-vertical-r` | Swimlane vertical r | 220×280 | Vertical swimlane (right) |
-| `fork-or-join` | Fork or Join | 120×10 | Synchronization bar |
-| `end-of-flow` | End of Flow | 30×30 | Flow termination |
-| `object-node` | Object Node | 120×60 | Object/data node |
+Generate XML using documented style + dimensions:
 
----
-
-## Class Diagram Stencils (TAM-CD)
-
-| Stencil ID | Title | Dimensions | Purpose |
-|------------|-------|------------|---------|
-| `class` | Class | 120×60 | UML class |
-| `class-with-compartments` | Class with compartments | 140×70 | Class with attributes/operations |
-| `association` | Association | 50×50 | Association relationship |
-| `composition` | Composition | 50×50 | Composition (filled diamond) |
-| `aggregation` | Aggregation | 50×50 | Aggregation (hollow diamond) |
-| `specialization` | Specialization | 50×50 | Inheritance |
-| `package` | Package | 200×100 | UML package |
-
----
-
-## Sequence Diagram Stencils (TAM-SeqD)
-
-| Stencil ID | Title | Dimensions | Purpose |
-|------------|-------|------------|---------|
-| `lifeline` | Lifeline | 120×360 | Object lifeline |
-| `activation` | Activation | 20×120 | Activation bar |
-| `no-focus` | No Focus | 20×120 | Inactive period |
-| `sync-message-exchange` | Sync. Message Exchange | 160×60 | Synchronous call |
-| `async-message-exchange` | Async. Message Exchange | 160×60 | Asynchronous call |
-| `r2l-sync-message-exchange` | R2L Sync. Message Exchange | 160×60 | Right-to-left sync |
-| `r2l-async-message-exchange` | R2L Async. Message Exchange | 160×60 | Right-to-left async |
-| `self-call` | Self-Call | 20×120 | Self-referential message |
-
----
-
-## Annotation Stencils (TAM-Ann)
-
-| Stencil ID | Title | Dimensions | Purpose |
-|------------|-------|------------|---------|
-| `text` | Text | 40×20 | Text annotation |
-| `area` | Area | 200×100 | Highlight area |
-| `3-dots-hor` | 3 Dots hor. | 30×30 | Horizontal ellipsis |
-| `3-dots-vert` | 3 Dots vert. | 30×30 | Vertical ellipsis |
-| `border-vertical` | Border Vertical | 0×300 | Vertical border line |
-| `border-horizontal` | Border Horizontal | 300×0 | Horizontal border line |
-| `note` | Note | 100×100 | Note annotation |
-| `curly-brace-*` | Curly Brace variants | various | Grouping braces |
-
----
-
-## Usage
-
-When creating TAM diagrams, use stencil IDs to specify exact shapes:
-
-```yaml
-nodes:
-  - id: webServer
-    stencil: agent
-    label: Web Server
-
-  - id: database
-    stencil: storage
-    label: PostgreSQL
-
-  - id: httpChannel
-    stencil: n-hor-channel
-
-  - id: user
-    stencil: human-agent
-    label: User
+```xml
+<mxCell id="2" value="Label" style="[STYLE_STRING]" vertex="1" parent="1">
+  <mxGeometry x="[X]" y="[Y]" width="[W]" height="[H]" as="geometry"/>
+</mxCell>
 ```
 
 ---
 
-## TAM Semantic Rules (Strictly Enforced)
+## Block Diagram Shapes
 
-1. **Agents cannot connect directly to agents** - use channels
-2. **Storages are passive** - cannot initiate communication
-3. **Channels are volatile** - no persistent data
-4. **Access arrows show data flow direction**
-5. **Request direction indicates initiator**
+### BD-Agent (Active Component)
+| Property | Value |
+|----------|-------|
+| **Style** | `rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;` |
+| **Width** | 120 |
+| **Height** | 60 |
+| **Purpose** | Software component that processes/transforms data |
+
+**Example:**
+```xml
+<mxCell id="2" value="Web Server" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="1">
+  <mxGeometry x="100" y="100" width="120" height="60" as="geometry"/>
+</mxCell>
+```
+
+### BD-Storage (Passive Storage)
+| Property | Value |
+|----------|-------|
+| **Style** | `rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;arcSize=40;` |
+| **Width** | 120 |
+| **Height** | 60 |
+| **Purpose** | Data storage that holds information persistently |
+
+**Example:**
+```xml
+<mxCell id="3" value="Database" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;arcSize=40;" vertex="1" parent="1">
+  <mxGeometry x="100" y="200" width="120" height="60" as="geometry"/>
+</mxCell>
+```
+
+### BD-Channel (Communication Point)
+| Property | Value |
+|----------|-------|
+| **Style** | `ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;rotatable=0;` |
+| **Width** | 20 |
+| **Height** | 20 |
+| **Purpose** | Small circle indicating agent-to-agent communication |
+
+**Example:**
+```xml
+<mxCell id="4" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;rotatable=0;" vertex="1" parent="1">
+  <mxGeometry x="160" y="120" width="20" height="20" as="geometry"/>
+</mxCell>
+```
+
+### BD-HumanAgent (Human Participant)
+| Property | Value |
+|----------|-------|
+| **Container Style** | `rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;rotatable=0;verticalAlign=bottom;align=center;` |
+| **Width** | 60 |
+| **Height** | 60 |
+| **Purpose** | Human user interacting with system |
+
+**Note:** Contains stick figure as child group. See BD-HumanAgent.xml in official repo for full structure.
+
+### BD-Queue (Queue/Buffer)
+| Property | Value |
+|----------|-------|
+| **Style** | `rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;arcSize=40;` |
+| **Width** | 120 |
+| **Height** | 60 |
+| **Purpose** | Message queue or buffer (same style as Storage, label differentiates) |
+
+---
+
+## Connector Shapes
+
+### BD-InfoFlowArrow-Rect-N (Horizontal Arrow)
+| Property | Value |
+|----------|-------|
+| **Style** | `edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=1;endArrow=classic;html=1;endFill=1;` |
+| **Type** | Edge (not vertex) |
+| **Purpose** | Unidirectional data flow (horizontal) |
+
+**Example:**
+```xml
+<mxCell id="5" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=1;endArrow=classic;html=1;endFill=1;" edge="1" parent="1" source="2" target="3">
+  <mxGeometry relative="1" as="geometry"/>
+</mxCell>
+```
+
+### BD-InfoFlowArrow-Rect-Z (Vertical Arrow)
+| Property | Value |
+|----------|-------|
+| **Style** | `edgeStyle=elbowEdgeStyle;elbow=horizontal;rounded=1;endArrow=classic;html=1;endFill=1;` |
+| **Type** | Edge |
+| **Purpose** | Unidirectional data flow (vertical) |
+
+### BD-modAccessHor (Horizontal Modify Access)
+| Property | Value |
+|----------|-------|
+| **Style** | Curved bidirectional arrows (group with two edges) |
+| **Width** | 40 |
+| **Height** | 40 |
+| **Purpose** | Bidirectional read/write access |
+
+**Note:** Complex shape - see BD-modAccessHor.xml for full structure.
+
+### BD-modAccessVert (Vertical Modify Access)
+| Property | Value |
+|----------|-------|
+| **Width** | 40 |
+| **Height** | 40 |
+| **Purpose** | Vertical version of modify access |
+
+---
+
+## Activity Diagram Shapes
+
+### AD-Action (Activity Step)
+| Property | Value |
+|----------|-------|
+| **Style** | `rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;arcSize=20;` |
+| **Width** | 120 |
+| **Height** | 60 |
+
+### AD-StartOfActivity (Start Node)
+| Property | Value |
+|----------|-------|
+| **Style** | `ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#000000;strokeWidth=2;` |
+| **Width** | 20 |
+| **Height** | 20 |
+
+### AD-EndOfActivity (End Node)
+| Property | Value |
+|----------|-------|
+| **Style** | `ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;` |
+| **Width** | 30 |
+| **Height** | 30 |
+| **Note** | Contains inner filled circle |
+
+### AD-Decision (Decision Diamond)
+| Property | Value |
+|----------|-------|
+| **Style** | `rhombus;whiteSpace=wrap;html=1;strokeWidth=2;` |
+| **Width** | 40 |
+| **Height** | 40 |
+
+### AD-Fork (Fork/Join Bar)
+| Property | Value |
+|----------|-------|
+| **Style** | `rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;strokeWidth=0;` |
+| **Width** | 120 |
+| **Height** | 10 |
+
+---
+
+## Quick Reference Table
+
+| Shape | Style | W × H |
+|-------|-------|-------|
+| BD-Agent | `rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;` | 120×60 |
+| BD-Storage | `rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;arcSize=40;` | 120×60 |
+| BD-Channel | `ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;rotatable=0;` | 20×20 |
+| BD-HumanAgent | `rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;rotatable=0;verticalAlign=bottom;` | 60×60 |
+| AD-Action | `rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;arcSize=20;` | 120×60 |
+| AD-Decision | `rhombus;whiteSpace=wrap;html=1;strokeWidth=2;` | 40×40 |
+| AD-Fork | `rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;strokeWidth=0;` | 120×10 |

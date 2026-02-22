@@ -1,121 +1,86 @@
 ---
 name: tam
-version: 2.0.0
-description: SAP TAM (Technical Architecture Modeling) diagram generation using official TAM stencils
+version: 3.0.0
+description: SAP TAM diagram generation with inline shape styles
 category: visual-design
-tags: [tam, fmc, sap, architecture, block-diagram, uml]
+tags: [tam, fmc, sap, architecture, block-diagram]
 ---
 
 # TAM Skill
 
-AI-powered diagram generation using **official SAP TAM stencils**.
+Generate TAM-compliant diagrams using **inline mxCell styles**. No external files needed - styles are documented directly.
 
-## Quick Start
+## Core Shapes (Block Diagram)
 
-| Command | Description |
-|---------|-------------|
-| `/tam-create` | Create TAM diagram from description |
-| `/tam-replicate` | Convert image to TAM notation |
-| `/tam-edit` | Modify existing TAM diagram |
+### Shape Styles
 
-## What is TAM?
+| Shape | Style | Size |
+|-------|-------|------|
+| Agent | `rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;` | 120×60 |
+| Storage | `rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;arcSize=40;` | 120×60 |
+| Channel | `ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;rotatable=0;` | 20×20 |
+| HumanAgent | `rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;verticalAlign=bottom;` | 60×60 |
 
-TAM (Technical Architecture Modeling) is SAP's standardized notation combining:
-- **FMC Block Diagrams** - Agents, Storages, Channels
-- **UML 2.0** - Components, Classes, Sequences
+### Connector Styles
 
-## Official Stencils
+| Connector | Style |
+|-----------|-------|
+| Arrow (H) | `edgeStyle=elbowEdgeStyle;elbow=vertical;rounded=1;endArrow=classic;endFill=1;` |
+| Arrow (V) | `edgeStyle=elbowEdgeStyle;elbow=horizontal;rounded=1;endArrow=classic;endFill=1;` |
+| Line only | `endArrow=none;strokeWidth=2;` |
 
-This plugin uses **exact stencil definitions** from SAP's TAM library:
+## How to Generate
 
-| Library | Shapes |
-|---------|--------|
-| TAM-BD | Agent, Storage, Channel, Human Agent, Arrows, Connectors |
-| TAM-AD | Action, Start/End, Decision, Swimlane, Fork/Join |
-| TAM-CD | Class, Association, Composition, Aggregation, Package |
-| TAM-SeqD | Lifeline, Activation, Sync/Async Messages |
-| TAM-Ann | Text, Note, Borders, Braces |
+Build mxGraphModel using documented styles:
 
-## Diagram Types
-
-### Block Diagram (Primary)
-
-| Element | Stencil | Purpose |
-|---------|---------|---------|
-| Active component | `agent` | Processes data |
-| Human participant | `human-agent` | User interaction |
-| Passive storage | `storage` | Data persistence |
-| Communication | `n-hor-channel`, `z-vert-channel` | Agent-to-agent |
-| Data flow | `n-hor-arrow`, `z-vert-arrow` | Direction indicator |
-| Read/Write | `mod-access-hor`, `mod-access-vert` | Bidirectional access |
-
-### Activity Diagram
-
-| Element | Stencil | Purpose |
-|---------|---------|---------|
-| Action | `action` | Activity step |
-| Start | `start-of-activity` | Initial node |
-| End | `end-of-activity` | Final node |
-| Decision | `decision-or-merge` | Branch/merge |
-| Parallel | `fork-or-join` | Synchronization |
-
-## Example
-
-```yaml
-meta:
-  diagramType: block
-  title: E-Commerce System
-
-nodes:
-  - id: customer
-    stencil: human-agent
-    label: Customer
-
-  - id: webApp
-    stencil: agent
-    label: Web Application
-
-  - id: productDB
-    stencil: storage
-    label: Product Catalog
-
-  - id: httpChannel
-    stencil: n-hor-channel
-
-edges:
-  - from: customer
-    to: httpChannel
-  - from: httpChannel
-    to: webApp
-  - from: webApp
-    to: productDB
-    stencil: z-vert-arrow
-    label: Query
+```xml
+<mxGraphModel>
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    <!-- Agent -->
+    <mxCell id="2" value="Web Server" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry x="200" y="100" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Storage -->
+    <mxCell id="3" value="Database" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;arcSize=40;" vertex="1" parent="1">
+      <mxGeometry x="200" y="250" width="120" height="60" as="geometry"/>
+    </mxCell>
+    <!-- Arrow from Agent to Storage -->
+    <mxCell id="4" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;rounded=1;endArrow=classic;endFill=1;" edge="1" parent="1" source="2" target="3">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+  </root>
+</mxGraphModel>
 ```
 
-## TAM Rules (Enforced)
+## TAM Rules
 
-1. **Agents cannot connect directly** - use channels
-2. **Storages are passive** - cannot initiate
-3. **Use official stencils only** - no custom shapes
+1. **Agents cannot connect directly** - put a Channel between them
+2. **Storages are passive** - arrows point TO storage (write) or FROM storage (read)
+3. **Use modify access** for bidirectional Agent↔Storage
+
+## Element Mapping
+
+| User Says | Shape | Style |
+|-----------|-------|-------|
+| user, customer, person | HumanAgent | `rounded=0;...verticalAlign=bottom;` |
+| server, service, handler | Agent | `rounded=0;strokeWidth=2;` |
+| database, storage, cache | Storage | `rounded=1;arcSize=40;` |
+| API, channel, queue | Channel | `ellipse;aspect=fixed;` |
 
 ## MCP Tools
 
-| Tool | Description |
+| Tool | When to Use |
 |------|-------------|
 | `start_session` | Opens browser preview |
 | `create_new_diagram` | Create from XML |
-| `edit_diagram` | Modify by cell ID |
+| `edit_diagram` | Modify existing |
 | `get_diagram` | Get current XML |
 | `export_diagram` | Save to file |
 
 ## Documentation
 
-- [Shapes Reference](../../docs/design-system/shapes.md)
-- [Connectors Reference](../../docs/design-system/connectors.md)
-- [Specification Format](../../docs/design-system/specification.md)
-
-## References
-
-- [SAP TAM Standard](https://www.sap.com/documents/tam-standard.pdf)
-- [FMC Modeling](https://www.fmc-modeling.org)
+- [Shape Styles](../../docs/design-system/shapes.md) - Complete style reference
+- [Connectors](../../docs/design-system/connectors.md) - Connection patterns
+- [Specification](../../docs/design-system/specification.md) - YAML format

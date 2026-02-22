@@ -1,7 +1,7 @@
 {
   "name": "tam-plugin",
-  "version": "2.0.0",
-  "description": "SAP TAM (Technical Architecture Modeling) diagram generation using official TAM stencils",
+  "version": "3.0.0",
+  "description": "SAP TAM diagram generation with simplified stencil shapes",
   "author": {
     "name": "Tuan Dinh"
   },
