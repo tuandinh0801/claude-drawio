@@ -1,7 +1,7 @@
 {
   "name": "tam-plugin",
-  "version": "3.0.0",
-  "description": "SAP TAM diagram generation with simplified stencil shapes",
+  "version": "3.1.0",
+  "description": "SAP TAM diagram generation using FMC methodology",
   "author": {
     "name": "Tuan Dinh"
   },

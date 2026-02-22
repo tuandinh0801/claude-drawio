@@ -1,46 +1,148 @@
 # TAM Connectors Reference
 
-TAM uses specific connector shapes for different relationship types.
+TAM uses specific connector styles for different relationship types based on FMC methodology.
+
+> **Note:** For construction patterns and rules, see [SKILL.md](../../skills/tam/SKILL.md).
+
+---
+
+## Access Type Semantics
+
+Arrow direction indicates **data flow direction**, not request direction:
+
+| Access Type | Arrow | Meaning |
+|-------------|-------|---------|
+| **Read** | Storage → Agent | Agent reads from storage |
+| **Write** | Agent → Storage | Agent writes to storage |
+| **Modify** | Agent ↔ Storage | Agent reads AND writes |
+| **Channel** | No arrow | Communication link between agents |
 
 ---
 
 ## Block Diagram Connectors
 
-### Information Flow (Unidirectional)
+### Read Access (Storage → Agent)
 
-Use `BD-InfoFlowArrow-Rect-N` (horizontal) or `BD-InfoFlowArrow-Rect-Z` (vertical) for unidirectional data flow.
+Data flows FROM storage TO requesting agent.
 
-**When to use:** Agent writes to Storage, Agent reads from Storage
+```xml
+<mxCell id="5" style="endArrow=classic;strokeWidth=2;" edge="1" parent="1" source="storage" target="agent">
+  <mxGeometry relative="1" as="geometry"/>
+</mxCell>
+```
 
-### Information Flow (No Arrow)
+**When to use:** Agent retrieves data from storage.
 
-Use `BD-InfoFlow-Rect-N` or `BD-InfoFlow-Rect-Z` for connections without direction indicator.
+### Write Access (Agent → Storage)
 
-**When to use:** Simple connections between shapes
+Data flows FROM agent TO storage.
+
+```xml
+<mxCell id="5" style="endArrow=classic;strokeWidth=2;" edge="1" parent="1" source="agent" target="storage">
+  <mxGeometry relative="1" as="geometry"/>
+</mxCell>
+```
+
+**When to use:** Agent persists data to storage.
 
 ### Modify Access (Bidirectional)
 
-Use `BD-modAccessHor` (horizontal) or `BD-modAccessVert` (vertical) for read+write access.
+Data flows both directions - agent reads AND writes.
 
-**When to use:** Agent both reads and writes to Storage
+```xml
+<mxCell id="5" style="endArrow=classic;startArrow=classic;strokeWidth=2;" edge="1" parent="1" source="agent" target="storage">
+  <mxGeometry relative="1" as="geometry"/>
+</mxCell>
+```
 
-### Channel Connection
+**When to use:** Agent both reads and writes to storage.
 
-Use `BD-Channel-Rect-N` (horizontal) or `BD-Channel-Rect-Z` (vertical) for agent-to-agent communication via channel.
+### Channel Connection (No Arrow)
 
-**When to use:** Two Agents communicate through a Channel
+Simple connection without direction - used for agent-channel links.
 
-### Request Direction
+```xml
+<mxCell id="5" style="endArrow=none;strokeWidth=2;" edge="1" parent="1" source="agent" target="channel">
+  <mxGeometry relative="1" as="geometry"/>
+</mxCell>
+```
 
-Use `BD-ReqResRight`, `BD-ReqResLeft`, `BD-ReqResUp`, `BD-ReqResDown` to indicate request direction on channels.
-
-**When to use:** Client-server patterns showing who initiates
+**When to use:** Connecting agents to channels.
 
 ---
 
-## TAM Connection Rules
+## Request-Response Pattern
 
-1. **Agent ↔ Agent**: Must use Channel (BD-Channel + BD-Channel-Rect-*)
-2. **Agent → Storage**: Use BD-InfoFlowArrow (write access)
-3. **Storage → Agent**: Use BD-InfoFlowArrow (read access)
-4. **Agent ↔ Storage**: Use BD-modAccess (modify access)
+For API/HTTP patterns, add protocol labels to edges:
+
+```
+┌──────────┐  [SCIM2]  ┌───┐     ┌──────────┐
+│  Client  │──────────►│ R │────►│  Server  │
+└──────────┘           └───┘     └──────────┘
+```
+
+**XML with Protocol Label:**
+```xml
+<mxCell id="5" value="SCIM2" style="endArrow=classic;strokeWidth=2;" edge="1" parent="1" source="client" target="channel">
+  <mxGeometry relative="1" as="geometry"/>
+</mxCell>
+```
+
+Common protocol labels: `HTTP`, `SCIM2`, `X.509`, `Federation`, `REST`, `SOAP`
+
+---
+
+## TAM Connection Rules (FMC Bipartite)
+
+**FUNDAMENTAL:** Active shapes (agents) connect ONLY to passive shapes (storages/channels).
+
+| Connection | Valid? | Pattern |
+|------------|--------|---------|
+| Agent → Storage | ✓ | Write access |
+| Storage → Agent | ✓ | Read access |
+| Agent ↔ Storage | ✓ | Modify access |
+| Agent ─ Channel ─ Agent | ✓ | Communication via channel |
+| Agent → Agent | ✗ | **FORBIDDEN** - must use channel |
+| Storage → Storage | ✗ | Invalid |
+
+---
+
+## Edge Style Reference
+
+| Connector Type | Style |
+|---------------|-------|
+| Read/Write (arrow) | `endArrow=classic;strokeWidth=2;` |
+| Modify (bidirectional) | `endArrow=classic;startArrow=classic;strokeWidth=2;` |
+| Channel link (no arrow) | `endArrow=none;strokeWidth=2;` |
+| With label | Add `value="Protocol"` attribute |
+
+---
+
+## Visual Patterns
+
+### Agent-to-Agent via Channel
+
+```
+┌──────────┐     ┌───┐     ┌──────────┐
+│  Agent1  │─────│   │─────│  Agent2  │
+└──────────┘     └───┘     └──────────┘
+              (channel)
+```
+
+### External Access via Boundary Channel
+
+```
+External ──[Protocol]──► ○ ──► Agent (inside boundary)
+                        (R)
+```
+
+### Storage Access Pattern
+
+```
+┌──────────┐              ┌──────────┐
+│  Agent   │──────────────│ Storage  │
+└──────────┘      ↑       └──────────┘
+                  │
+         Arrow direction indicates
+         data flow (write = →, read = ←)
+```
