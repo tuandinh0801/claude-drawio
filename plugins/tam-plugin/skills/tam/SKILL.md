@@ -58,72 +58,85 @@ Arrow direction indicates **data flow direction**:
 
 ## Construction Patterns
 
-### Pattern 1: Channel as Access Port
+### Pattern 1: Channel as Access Port (SAP TAM Style)
 
-Channels are **access points** positioned at agent boundaries:
+**CRITICAL:** In SAP TAM diagrams, channels are **visually attached to agent boundaries** - they appear as "ports" on the edge of an agent, NOT floating in the middle of connections.
 
 ```
-┌─────────────────┐
-│     Agent       │
-│            ┌───┐│
-│            │ R ││◄─── External connection
-│            └───┘│
-└─────────────────┘
+SAP TAM STYLE (CORRECT):          WRONG:
+┌──────────┬───┐                  ┌──────────┐     ┌───┐
+│  Agent   │ R │◄── connection    │  Agent   │─────│ R │
+└──────────┴───┘                  └──────────┘     └───┘
+   Channel attached               Channel floating
+   to agent edge                  (not SAP style)
 ```
 
-**XML Example - Read Access Channel:**
+**Channel Positioning Rules:**
+1. Channel circle **touches/overlaps** the agent boundary
+2. Position channel at the edge where connection enters
+3. Channel appears as part of the agent's interface
+4. Use `x = agent.x + agent.width - channel.width/2` for right-edge placement
+
+**XML Example - Channel Attached to Agent Right Edge:**
 ```xml
-<!-- Agent at x=100, width=120, so right edge is x=220 -->
+<!-- Agent at x=100, width=120 -->
 <mxCell id="2" value="Server" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="1">
   <mxGeometry x="100" y="100" width="120" height="60" as="geometry"/>
 </mxCell>
 
-<!-- Channel at right edge (x=210, centered on edge) with "R" label -->
-<mxCell id="3" value="R" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;fontSize=10;" vertex="1" parent="1">
+<!-- Channel overlapping right edge: x = 100 + 120 - 10 = 210 (half-overlaps edge) -->
+<mxCell id="3" value="R" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;fontSize=10;fillColor=#FFFFFF;" vertex="1" parent="1">
   <mxGeometry x="210" y="120" width="20" height="20" as="geometry"/>
 </mxCell>
 ```
 
 **Channel Labels:**
-- `R` = Read access (external can read)
-- `W` = Write access (external can write)
+- `R` = Read access (external can read from this agent)
+- `W` = Write access (external can write to this agent)
 - Empty = Bidirectional access
 
-### Pattern 2: Agent-to-Agent Communication
+### Pattern 2: Agent-to-Agent Communication (SAP TAM Style)
 
-Agents NEVER connect directly. Always use a channel:
+In SAP TAM, agent-to-agent connections show channels **attached to each agent's boundary**:
 
 ```
-┌──────────┐     ┌───┐     ┌──────────┐
-│  Client  │─────│   │─────│  Server  │
-└──────────┘     └───┘     └──────────┘
-                Channel
+SAP TAM STYLE:
+┌──────────┬───┐─────────────┌───┬──────────┐
+│  Client  │   │             │ R │  Server  │
+└──────────┴───┘             └───┴──────────┘
+         Channel              Channel
+         (client side)        (server side)
 ```
 
-**XML Example:**
+**When 2 agents communicate:**
+- Channel on sending agent shows outgoing interface
+- Channel on receiving agent (with R label) shows incoming read access
+- Connection line goes between the two channels
+
+**XML Example - Agent to Agent via Attached Channels:**
 ```xml
 <!-- Client Agent -->
 <mxCell id="2" value="Client" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="1">
   <mxGeometry x="100" y="100" width="120" height="60" as="geometry"/>
 </mxCell>
 
-<!-- Channel between agents -->
-<mxCell id="3" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;" vertex="1" parent="1">
-  <mxGeometry x="250" y="120" width="20" height="20" as="geometry"/>
+<!-- Client's outgoing channel (right edge) -->
+<mxCell id="3" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;fillColor=#FFFFFF;" vertex="1" parent="1">
+  <mxGeometry x="210" y="120" width="20" height="20" as="geometry"/>
 </mxCell>
 
 <!-- Server Agent -->
 <mxCell id="4" value="Server" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="1">
-  <mxGeometry x="300" y="100" width="120" height="60" as="geometry"/>
+  <mxGeometry x="350" y="100" width="120" height="60" as="geometry"/>
 </mxCell>
 
-<!-- Edge: Client to Channel -->
-<mxCell id="5" style="endArrow=none;strokeWidth=2;" edge="1" parent="1" source="2" target="3">
-  <mxGeometry relative="1" as="geometry"/>
+<!-- Server's incoming channel (left edge) with R label -->
+<mxCell id="5" value="R" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;fontSize=10;fillColor=#FFFFFF;" vertex="1" parent="1">
+  <mxGeometry x="340" y="120" width="20" height="20" as="geometry"/>
 </mxCell>
 
-<!-- Edge: Channel to Server -->
-<mxCell id="6" style="endArrow=none;strokeWidth=2;" edge="1" parent="1" source="3" target="4">
+<!-- Connection between channels -->
+<mxCell id="6" style="endArrow=classic;strokeWidth=2;" edge="1" parent="1" source="3" target="5">
   <mxGeometry relative="1" as="geometry"/>
 </mxCell>
 ```
@@ -263,7 +276,7 @@ Human actors positioned **OUTSIDE** system boundary:
 
 ## Complete Example
 
-**SAP Cloud Identity Services Architecture:**
+**SAP Cloud Identity Services Architecture (SAP TAM Style):**
 
 ```xml
 <mxGraphModel>
@@ -285,25 +298,32 @@ Human actors positioned **OUTSIDE** system boundary:
       <mxGeometry x="40" y="60" width="120" height="60" as="geometry"/>
     </mxCell>
 
+    <!-- Channel attached to Auth's LEFT edge (incoming) - SAP TAM Style -->
+    <mxCell id="auth-channel" value="R"
+            style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;fontSize=10;fillColor=#FFFFFF;"
+            vertex="1" parent="2">
+      <mxGeometry x="30" y="80" width="20" height="20" as="geometry"/>
+    </mxCell>
+
     <!-- Identity Directory (Storage) -->
     <mxCell id="4" value="Identity&#xa;Directory"
             style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;arcSize=40;"
             vertex="1" parent="2">
-      <mxGeometry x="200" y="60" width="120" height="60" as="geometry"/>
+      <mxGeometry x="250" y="60" width="120" height="60" as="geometry"/>
     </mxCell>
 
     <!-- Identity Provisioning (Agent) -->
     <mxCell id="5" value="Identity&#xa;Provisioning"
             style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;"
             vertex="1" parent="2">
-      <mxGeometry x="200" y="180" width="120" height="60" as="geometry"/>
+      <mxGeometry x="250" y="180" width="120" height="60" as="geometry"/>
     </mxCell>
 
-    <!-- Read Channel at boundary (for external read access) -->
-    <mxCell id="6" value="R"
-            style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;fontSize=10;"
+    <!-- Channel attached to Provisioning's RIGHT edge (outgoing to external) -->
+    <mxCell id="prov-channel" value="R"
+            style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;fontSize=10;fillColor=#FFFFFF;"
             vertex="1" parent="2">
-      <mxGeometry x="420" y="80" width="20" height="20" as="geometry"/>
+      <mxGeometry x="360" y="200" width="20" height="20" as="geometry"/>
     </mxCell>
 
     <!-- Auth to Directory (read) -->
@@ -316,42 +336,52 @@ Human actors positioned **OUTSIDE** system boundary:
       <mxGeometry relative="1" as="geometry"/>
     </mxCell>
 
-    <!-- Channel to Auth connection -->
-    <mxCell id="9" style="endArrow=none;strokeWidth=2;" edge="1" parent="2" source="6" target="3">
-      <mxGeometry relative="1" as="geometry"/>
-    </mxCell>
-
-    <!-- External: Human Actor (outside boundary) -->
+    <!-- External: Human Actor (outside boundary, left side) -->
     <mxCell id="10" value="Application&#xa;Client"
             style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;verticalAlign=bottom;"
             vertex="1" parent="1">
-      <mxGeometry x="40" y="170" width="60" height="60" as="geometry"/>
+      <mxGeometry x="40" y="160" width="60" height="60" as="geometry"/>
     </mxCell>
 
-    <!-- External: SAP BTP (Agent) -->
+    <!-- Channel attached to Human's RIGHT edge -->
+    <mxCell id="client-channel" value=""
+            style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;fillColor=#FFFFFF;"
+            vertex="1" parent="1">
+      <mxGeometry x="90" y="180" width="20" height="20" as="geometry"/>
+    </mxCell>
+
+    <!-- External: SAP BTP (Agent, right side) -->
     <mxCell id="11" value="SAP BTP"
             style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;"
             vertex="1" parent="1">
-      <mxGeometry x="650" y="120" width="100" height="50" as="geometry"/>
+      <mxGeometry x="650" y="240" width="100" height="50" as="geometry"/>
     </mxCell>
 
-    <!-- External connection: Client to Channel (with protocol label) -->
-    <mxCell id="12" value="Federation" style="endArrow=classic;strokeWidth=2;" edge="1" parent="1" source="10" target="6">
-      <mxGeometry relative="1" as="geometry">
-        <Array as="points">
-          <mxPoint x="100" y="200"/>
-          <mxPoint x="560" y="200"/>
-        </Array>
-      </mxGeometry>
+    <!-- Channel attached to BTP's LEFT edge -->
+    <mxCell id="btp-channel" value="R"
+            style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;fontSize=10;fillColor=#FFFFFF;"
+            vertex="1" parent="1">
+      <mxGeometry x="640" y="255" width="20" height="20" as="geometry"/>
     </mxCell>
 
-    <!-- External connection: SAP BTP to Channel -->
-    <mxCell id="13" value="SCIM2" style="endArrow=classic;strokeWidth=2;" edge="1" parent="1" source="11" target="6">
+    <!-- Connection: Client channel to Auth channel (with protocol label) -->
+    <mxCell id="12" value="Federation" style="endArrow=classic;strokeWidth=2;" edge="1" parent="1" source="client-channel" target="auth-channel">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+
+    <!-- Connection: Provisioning channel to BTP channel -->
+    <mxCell id="13" value="SCIM2" style="endArrow=classic;strokeWidth=2;" edge="1" parent="1" source="prov-channel" target="btp-channel">
       <mxGeometry relative="1" as="geometry"/>
     </mxCell>
   </root>
 </mxGraphModel>
 ```
+
+**Key SAP TAM Style Points in This Example:**
+1. **Channels attached to agent edges** - `auth-channel` at x=30 touches Auth agent's left edge (agent at x=40)
+2. **Channel on both sides of connection** - Client has outgoing channel, Auth has incoming channel
+3. **R label on receiving channels** - Shows read access into that agent
+4. **Protocol labels on connection lines** - "Federation", "SCIM2" on edges between channels
 
 ---
 
@@ -376,16 +406,17 @@ Human actors positioned **OUTSIDE** system boundary:
 | Modify | `endArrow=classic;startArrow=classic;strokeWidth=2;` |
 | Channel link | `endArrow=none;strokeWidth=2;` |
 
-### Construction Checklist
+### Construction Checklist (SAP TAM Style)
 
 1. [ ] Bipartite structure: Agents only connect to passive elements
 2. [ ] Agent-to-agent: Always via channel (never direct)
-3. [ ] Channels at boundaries: Position at agent/container edges
-4. [ ] R/W labels: Add to channels showing access type
+3. [ ] **Channels attached to edges**: Position touching/overlapping agent boundary (NOT floating)
+4. [ ] R/W labels: Add to incoming channels showing access type
 5. [ ] Arrow direction: Points in data flow direction
 6. [ ] System boundary: Container for scope
 7. [ ] External actors: Position outside boundary
-8. [ ] Protocol labels: On edges for API connections
+8. [ ] Protocol labels: On edges between channels for API connections
+9. [ ] **Channels on both sides**: Outgoing channel on sender, incoming channel on receiver
 
 ## MCP Tools
 
