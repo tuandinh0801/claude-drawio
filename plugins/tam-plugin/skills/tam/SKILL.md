@@ -427,3 +427,24 @@ Human actors positioned **OUTSIDE** system boundary:
 | `edit_diagram` | Modify existing |
 | `get_diagram` | Get current XML |
 | `export_diagram` | Save to file |
+
+---
+
+## References
+
+**Official FMC Documentation:**
+- [FMC Notation Reference](http://www.fmc-modeling.org/notation_reference) - Complete visual notation guide
+- [FMC Visualization Guidelines](http://www.fmc-modeling.org/visualization_guidelines) - Layout best practices
+- [FMC Metamodel](http://www.fmc-modeling.org/metamodel) - Element types and relationships
+- [FMC and TAM](http://www.fmc-modeling.org/fmc-and-tam) - SAP's TAM extension
+
+**Key FMC Principles (from official docs):**
+1. "Agents are depicted as angular shapes" - Active components
+2. "Storages and Channels use rounded shapes" - Passive components
+3. "Channels are usually depicted as smaller circles"
+4. "All FMC diagrams are bipartite graphs using angular and rounded node shapes alternately connected"
+5. "Edges depict the kind of access (read, write, modifying)"
+
+**SAP TAM Resources:**
+- SAP Community blogs on Technical Architecture Modeling
+- TAM stencils available for draw.io and Visio
